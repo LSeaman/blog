@@ -11,7 +11,9 @@ import {
   Menu,
   Submenu,
   MenuItem,
-  MenuItemGroup
+  MenuItemGroup,
+  Dialog,
+  Link
 } from 'element-ui'
 
 Vue.use(Row)
@@ -24,6 +26,8 @@ Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
+Vue.use(Dialog)
+Vue.use(Link)
 
 Vue.prototype.$message = Message
 Vue.prototype.$notification = Notification

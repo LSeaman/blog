@@ -51,20 +51,22 @@
           </div>
           <!-- 顶部其他项目 -->
           <div>
+            <div class="logout-box">
+              <button class="el-icon-switch-button" @click="handleLogout()"></button>
+            </div>
+            <div class="user-info-box">
+              <button class="el-icon-user"></button>
+            </div>
             <div class="search-box">
               <input type="text" placeholder="Search..." :style="{ width: showSearch ? '200px' : 0 }" />
               <button class="el-icon-search" @click="showSearchBox"></button>
             </div>
-            <div class="info-box">
-              <button class="el-icon-s-custom"></button>
-            </div>
-            <div class="info-box">
-              <button class="el-icon-bell"></button>
-            </div>
           </div>
         </el-header>
         <el-main>
-          <transition enter-active-class="animated zoomIn"> <router-view /> </transition>
+          <transition enter-active-class="animated zoomIn">
+            <router-view />
+          </transition>
         </el-main>
       </el-container>
     </el-container>
@@ -87,6 +89,11 @@ export default {
     /* 显示搜索栏 */
     showSearchBox() {
       this.showSearch = !this.showSearch
+    },
+    /* 处理登出 */
+    handleLogout() {
+      window.localStorage.removeItem('TOKEN')
+      this.$router.push('./login')
     }
   }
 }
@@ -120,6 +127,9 @@ export default {
       button:hover {
         background-color: #dfdfdf;
       }
+      button :nth-child(1):hover {
+        background-color: #910000;
+      }
       > :nth-child(2) {
         > div {
           display: flex;
@@ -140,8 +150,11 @@ export default {
             right: 0;
           }
         }
-        .info-box {
-          float: right;
+        .logout-box {
+          button:hover {
+            background-color: #910000;
+            color: #fff;
+          }
         }
       }
     }

@@ -3,6 +3,8 @@
     <button class="my-card-title" @click="handleExpand" :style="{ transform: iconRotate ? 'translateX(-50%) rotate(90deg)' : 'translateX(-50%)' }">
       +
     </button>
+    <slot name="header"></slot>
+    <slot name="container"></slot>
   </div>
 </template>
 
@@ -36,7 +38,9 @@ export default {
 
 <style lang="less" scoped>
 .my-card {
+  box-sizing: border-box;
   position: relative;
+  padding: 20px;
   background-color: #fff;
   border-radius: 6px;
   box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(0,0,0,.4);

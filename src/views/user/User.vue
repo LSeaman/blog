@@ -1,8 +1,8 @@
 <template lang="">
   <div class="user-page">
     <my-card>
-      <template id="Hello">
-        <div>1</div>
+      <template v-slot:container>
+        <div>2</div>
       </template>
     </my-card>
   </div>
@@ -13,6 +13,9 @@ import MyCard from '../../components/Mycard'
 export default {
   components: {
     MyCard
+  },
+  created() {
+    /* 获取用户数据 */
   }
 }
 </script>

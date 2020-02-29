@@ -2,6 +2,7 @@ module.exports = {
   assetsDir: 'static',
   publicPath: './',
   devServer: {
+    port: 9099,
     before(app) {
       // 判断是否为开发环境
       if (process.env.NODE_ENV.toUpperCase() === 'DEVELOPMENT') {
