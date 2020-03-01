@@ -13,7 +13,7 @@ import {
   MenuItem,
   MenuItemGroup,
   Dialog,
-  Link
+  Loading
 } from 'element-ui'
 
 Vue.use(Row)
@@ -27,7 +27,7 @@ Vue.use(Submenu)
 Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
 Vue.use(Dialog)
-Vue.use(Link)
+Vue.use(Loading)
 
 Vue.prototype.$message = Message
 Vue.prototype.$notification = Notification

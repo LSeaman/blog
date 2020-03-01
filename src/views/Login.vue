@@ -22,11 +22,8 @@
           </div>
         </transition>
         <div class="login-btn">
-          <!-- <div @click="setRandomCode()" :style="{ 'border-bottom': showCode }">
-            <s-identify :randomCode="randomCode" :contentWidth="120" :contentHeight="48" v-if="showCode"></s-identify>
-          </div> -->
           <div @click="toggleCard()">前往注册</div>
-          <div @click="handleLogin()">登入</div>
+          <div @click="handleLogin()" v-loading.fullscreen.lock="fullscreenLoading">登入</div>
         </div>
       </div>
     </transition>
@@ -131,18 +128,18 @@ export default {
       },
       // 获取验证码 禁用 标志
       codeDisAble: false,
-      randomCode: '',
+      fullscreenLoading: false,
       loginFormData: {
         email: '', // admin@qq.com
         password: '' // 123
       },
       registeredFormData: {
         ip: '',
-        email: 'flvp@qq.com',
-        nickname: 'Larmal',
-        password: 'Flp0513?',
-        cPassword: 'Flp0513?',
-        phone: '13575098799',
+        email: '',
+        nickname: '',
+        password: '',
+        cPassword: '',
+        phone: '',
         identityCode: null
       }
     }
@@ -181,6 +178,30 @@ export default {
       this.verifyLogin(email, password, emailReg)
     },
 
+    /* 发起登陆请求 */
+    async xhrLogin(formData) {
+      const res = await this.$http.get('/blog/user/userLogin', {
+        params: {
+          user_email: formData.email,
+          user_password: formData.password
+        }
+      })
+      if (res.data.status === 200) {
+        this.$notification.success({
+          title: '成功',
+          message: '欢迎回来'
+        })
+        window.localStorage.setItem('TOKEN', res.data.token)
+        this.$router.push('./backstage')
+      } else {
+        this.showCode = false
+        this.$notification.error({
+          title: '错误',
+          message: '账号或密码错误'
+        })
+      }
+    },
+
     /* 切换 登录 与 注册 */
     async toggleCard() {
       this.registeredFlag = !this.registeredFlag
@@ -188,28 +209,9 @@ export default {
 
     /* 验证成功 */
     async verifiedSuccess() {
+      this.fullscreenLoading = true
       if (!this.registeredFlag) {
-        const res = await this.$http.get('/blog/user/userLogin', {
-          params: {
-            user_email: this.loginFormData.email,
-            user_password: this.loginFormData.password
-          }
-        })
-        if (res.data.status === 200) {
-          this.$notification.success({
-            title: '成功',
-            message: '欢迎回来'
-          })
-          window.localStorage.setItem('TOKEN', res.data.token)
-          this.$router.push('./backstage')
-        } else {
-          this.showCode = false
-          this.$notification.error({
-            title: '错误',
-            message: '账号或密码错误'
-          })
-        }
-        console.log(res)
+        this.xhrLogin(this.loginFormData)
       } else {
         const { ip, email, nickname, password, phone, identityCode } = this.registeredFormData
         const res = await this.$http.get('/blog/user/register', {
@@ -230,20 +232,7 @@ export default {
             message: h('i', { style: 'color: teal' }, '将在3秒后登录')
           })
           window.setTimeout(async () => {
-            const res = await this.$http.get('/blog/user/userLogin', {
-              params: {
-                user_email: this.registeredFormData.email,
-                user_password: this.registeredFormData.password
-              }
-            })
-            if (res.data.status === 200) {
-              this.$notification.success({
-                title: '成功',
-                message: '欢迎回来'
-              })
-              window.localStorage.setItem('TOKEN', res.data.token)
-              this.$router.push('./backstage')
-            }
+            this.xhrLogin(this.registeredFormData)
           }, 3000)
         }
       }
@@ -370,6 +359,7 @@ export default {
 
     /* 发送验证码 */
     async sendEmailCode() {
+      this.verifyregiter()
       this.codeDisAble = true
       this.checkReview('Email')
       if (this.reuseFlag.email === 2) {
