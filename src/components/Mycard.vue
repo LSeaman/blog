@@ -1,10 +1,9 @@
 <template>
   <div id="my-card" class="my-card" :style="{ width: this.cardWidth + '%', height: this.cardHeight + '%' }">
-    <button class="my-card-title" @click="handleExpand" :style="{ transform: iconRotate ? 'translateX(-50%) rotate(90deg)' : 'translateX(-50%)' }">
-      +
-    </button>
-    <slot name="header"></slot>
-    <slot name="container"></slot>
+    <slot name="header">
+      <div class="my-card-header" v-if="header">{{ headerContent }}</div>
+    </slot>
+    <slot name="container" class="my-card-container"></slot>
   </div>
 </template>
 
@@ -25,6 +24,14 @@ export default {
     cardHeight: {
       type: Number,
       default: 100
+    },
+    header: {
+      type: Boolean,
+      default: true
+    },
+    headerContent: {
+      type: String,
+      default: '标题'
     }
   },
   methods: {
@@ -43,18 +50,26 @@ export default {
   padding: 20px;
   background-color: #fff;
   border-radius: 6px;
-  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(0,0,0,.4);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 0, 0, 0.4);
   .my-card-title {
     position: absolute;
     top: -20px;
     left: 50%;
-    // transform: ;
     background-color: #910000;
     width: 48px;
     height: 48px;
     box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.4);
     border-radius: 50%;
     font-size: 32px;
+  }
+  .my-card-header {
+    width: 100%;
+    height: 20%;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .my-card-container {
+    height: 200px;
   }
 }
 </style>

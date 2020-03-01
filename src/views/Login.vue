@@ -97,17 +97,14 @@
 
     <!-- 验证码 -->
     <el-dialog :visible.sync="showCode" width="360px" center>
-      <slide-verify :l="42" :r="10" :w="310" :h="160" :imgs="verifyImg" slider-text="向右滑动" @success="verifiedSuccess()" @fail="verifiedFail()" @refresh="onRefresh"></slide-verify>
+      <slide-verify :l="42" :r="10" :w="310" :h="160" slider-text="向右滑动" @success="verifiedSuccess()" @fail="verifiedFail()" @refresh="onRefresh"></slide-verify>
     </el-dialog>
+
+    <!-- 登录弹框 -->
   </div>
 </template>
 
 <script>
-import img1 from '../assets/img/verify/img1.jpg'
-import img2 from '../assets/img/verify/img2.jpg'
-import img3 from '../assets/img/verify/img3.jpg'
-import img4 from '../assets/img/verify/img4.jpg'
-import img5 from '../assets/img/verify/img5.jpg'
 const emailReg = /^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/
 const nameReg = /^[a-zA-Z0-9_-]{4,16}$/
 const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,10}/
@@ -120,8 +117,6 @@ export default {
       registeredBox: null,
       // 显示验证码
       showCode: false,
-      // 验证图片
-      verifyImg: [img1, img2, img3, img4, img5],
       // 登陆时 , 有任意一项错误激活动画
       worriedTips: true,
       // 切换至注册

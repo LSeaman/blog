@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Backstage from '../views/Backstage.vue'
+import Welcome from '../views/Welcome.vue'
 import User from '../views/user/User.vue'
 import Role from '../views/user/Role.vue'
 import Power from '../views/user/Power.vue'
@@ -29,7 +30,9 @@ const routes = [
   {
     path: '/backstage',
     component: Backstage,
+    redirect: '/welcome',
     children: [
+      { path: '/welcome', component: Welcome },
       { path: '/user', component: User },
       { path: '/role', component: Role },
       { path: '/power', component: Power },
