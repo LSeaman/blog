@@ -23,7 +23,7 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', redirect: '/home' },
+  { path: '/', redirect: '/l  ogin' },
   { path: '/home', component: Home },
   { path: '/login', component: Login },
   { path: '/test', component: Text },

@@ -13,7 +13,9 @@ import SlideVerify from 'vue-monoplasty-slide-verify'
 /* 将 axios 放入 Vue 原型 */
 Vue.prototype.$http = Axios
 /* 配置 axios BaseURL */
-Vue.prototype.$http.defaults.baseURL = 'http://localhost:8080/'
+// Vue.prototype.$http.defaults.baseURL = 'http://localhost:8080/'
+Vue.prototype.$http.defaults.baseURL = 'http://codw.ga:8080/'
+console.log(process.env.NODE_ENV)
 
 Vue.use(SlideVerify)
 
